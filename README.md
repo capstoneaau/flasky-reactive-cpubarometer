@@ -8,4 +8,6 @@ Just a simple React + Flask + WebSocket miniproject to learn how to use the afor
 
 `python main.py` to start the backend server.
 
+`npm ci` to install the node dependencies.
+
 `npm run start` to start the frontend server.
