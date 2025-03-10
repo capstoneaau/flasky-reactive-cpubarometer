@@ -12,8 +12,8 @@ socketio = SocketIO(app,cors_allowed_origins="*")
 def get_cpu_temperature():
     temperatures = psutil.sensors_temperatures()
     sensor = None
-    if temperatures['coretemp'] == None:
-        if temperatures['cpu_thermal'] == None:
+    if temperatures['coretemp'] is None:
+        if temperatures['cpu_thermal'] is None:
             return "Platform not supported"
         sensor = 'cpu_thermal'
     sensor = 'coretemp'
