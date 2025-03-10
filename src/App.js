@@ -1,22 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { io } from "socket.io-client";
 
 function App() {
+  const [temp, setTemp] = useState(0.0);
+
+  useEffect(() => {
+    const socket = io("localhost:5000/", {
+      transports: ["websocket"],
+      cors: {
+        origin: "http://localhost:3000/",
+      },
+    });
+
+    socket.on("data", (data) => {
+      setTemp(data.data);
+    });
+
+    return function cleanup() {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h3>Current temp 🌡️</h3>
+        <br />
+        <h1>{temp}°C</h1>
       </header>
     </div>
   );
